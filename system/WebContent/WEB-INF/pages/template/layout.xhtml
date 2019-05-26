@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <title>Home</title>
+  </h:head>
+  <h:body>
+    <h:form id="form">
+      <table width="100%">
+        <tr>
+          <td colspan="2" align="center">
+            <ui:insert name="cabecalho">
+              <h1>Sistema de Puericultura</h1>
+            </ui:insert>
+          </td>
+        </tr>
+        <tr>
+          <td width="200px" valign="top">
+          <p:growl id="messages" showDetail="false"/>
+            <h3 style="margin-top:0">Menu</h3>
+    <p:menu>
+        <p:submenu label="Registros">
+            <p:menuitem value="Paciente" url="paciente.xhtml" icon="pi pi-save" />
+            <p:menuitem value="Consulta" url="pages/consulta.xhtml" icon="/WEB-INF/pages/icons/consulta.png"/>
+        </p:submenu>
+        <p:submenu label="Consultas">
+            <p:menuitem value="Relatório" url="pages/relatorio.xhtml" icon="pi pi-times"/>
+        </p:submenu>
+       
+    </p:menu>
+          </td>
+          <td>
+            <ui:insert name="conteudo">
+              Conteúdo
+            </ui:insert>
+          </td>
+        </tr>
+      </table>
+    </h:form>
+  </h:body>
+</html>
