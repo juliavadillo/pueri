@@ -1,6 +1,10 @@
 package control;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.annotation.ManagedBean;
+import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 
@@ -8,7 +12,8 @@ import model.DadosNascimento;
 import model.Endereco;
 import model.Paciente;
 import model.Sexo;
-@ManagedBean(value="paciente")
+
+@ManagedBean(value = "paciente")
 public class PacienteManagedBean implements java.io.Serializable {
 	private static Logger log = Logger.getLogger(PacienteManagedBean.class);
 	private static final long serialVersionUID = 1L;
@@ -16,9 +21,11 @@ public class PacienteManagedBean implements java.io.Serializable {
 	private Endereco endereco = new Endereco();
 	private DadosNascimento dadosNasc = new DadosNascimento();
 	private String msg = "";
-    private Sexo sexo;
-	
-    
+	private Sexo sexo;
+
+	public List<Sexo> getGenders(){  
+		   return Arrays.asList(Sexo.values());  
+		}  
 	public Sexo getSexo() {
 		return sexo;
 	}
@@ -64,6 +71,8 @@ public class PacienteManagedBean implements java.io.Serializable {
 		this.paciente.setCidadeNasc("");
 		this.paciente.setEstadoNasc("");
 		this.paciente.setSexo(null);
+		this.paciente.setTelefone1("");
+		this.paciente.setTelefone2("");
 		this.endereco.setLogradouro("");
 		this.endereco.setBairro("");
 		this.endereco.setComplemento("");
@@ -78,6 +87,7 @@ public class PacienteManagedBean implements java.io.Serializable {
 		this.dadosNasc.setTipoParto(null);
 	}
 
+	@Transactional
 	public String createPaciente() {
 
 		String str = "index";
@@ -86,9 +96,11 @@ public class PacienteManagedBean implements java.io.Serializable {
 
 			EntityManagerImpl entityManager = new EntityManagerImpl();
 			Endereco end = (Endereco) entityManager.insertObject(this.endereco);
-			DadosNascimento dados = (DadosNascimento) entityManager.insertObject(this.dadosNasc);
+			// DadosNascimento dados = (DadosNascimento)
+			// entityManager.insertObject(this.dadosNasc);
 			this.paciente.setEndereco(end);
-			this.paciente.setDadosNasc(dados);
+			this.paciente.setSexo(sexo);
+			// this.paciente.setDadosNasc(dados);
 			entityManager.insert(this.paciente);
 
 			limparPaciente();

@@ -7,4 +7,19 @@ public enum Sexo {
 	private Sexo(int codigo) {
 		this.codigo = codigo;
 	}
+	
+	public String getLabel() {
+	    switch (this) {
+	        case MASCULINO:
+	            return "Masculino";
+	        case FEMININO:
+	            return "Feminino";
+
+	    }
+	    return "NONE";
+	}
+	@Override
+	public String toString() {
+	    return getLabel();
+	}
 }

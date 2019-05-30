@@ -26,11 +26,10 @@
                     <p:message for="nome" />
   
                    <p:outputLabel value="Gênero:" />
-                    <p:selectOneRadio id="genero" value="#{paciente.paciente.sexo}">
-                           <f:selectItem itemValue="#{Sexo.FEMININO}" itemLabel="Feminino" />
-                           <f:selectItem itemValue="#{Sexo.MASCULINO}" itemLabel="Maculino" />
+                    <p:selectOneMenu id="genero" value="#{paciente.sexo}">
+                    <f:selectItems value="#{paciente.genders}" />  
                            <f:ajax event="change" execute="@this" render="panel1" />
-                    </p:selectOneRadio>
+                    </p:selectOneMenu>
                     <p:message for="genero" />
               
                   <p:outputLabel value="Nome Responsável 1:" />
