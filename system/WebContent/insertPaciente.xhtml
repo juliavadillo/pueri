@@ -1,111 +1,147 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:ui="http://java.sun.com/jsf/facelets"
-       xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
 <h:head>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+		media="screen,projection" />
+
+
+
 </h:head>
-<h:body>
-  
-       <p:outputLabel value="#{paciente.msg}" id="msg1" styleClass="msg" />
-  
-       <h:form id="pacienteForm" enctype="multipart/form-data" prependId="false">
-  
-             <p:panelGrid id="panel1" columns="3" border="3" cellpadding="5"
-                    cellspacing="1">
-                    <f:facet name="header">
-                           <h:outputText value="Cadastrar paciente" />
-                    </f:facet>
-    
-                    <p:outputLabel value="Nome:" />
-                    <p:inputText value="#{paciente.paciente.nome}" id="nome"
-                           maxlength="100" required="true"
-                           requiredMessage="Campo obrigatório" />
-                    <p:message for="nome" />
-  
-                   <p:outputLabel value="Gênero:" />
-                    <p:selectOneMenu id="genero" value="#{paciente.sexo}">
-                    <f:selectItems value="#{paciente.genders}" />  
-                           <f:ajax event="change" execute="@this" render="panel1" />
-                    </p:selectOneMenu>
-                    <p:message for="genero" />
-              
-                  <p:outputLabel value="Nome Responsável 1:" />
-                    <p:inputText value="#{paciente.paciente.nomeResponsavel1}" id="nomeResponsavel1"
-                           maxlength="100" required="true"
-                           requiredMessage="Campo obrigatório" />
-                    <p:message for="nomeResponsavel1" />
-  
-                  <p:outputLabel value="Nome Responsável 2:" />
-                    <p:inputText value="#{paciente.paciente.nomeResponsavel2}" id="nomeResponsavel2"
-                           maxlength="100" />
-                    <p:message for="nomeResponsavel2" />
-   
-   <p:outputLabel value="Telefone:" />
-                    <p:inputText value="#{paciente.paciente.telefone1}" id="telefone1"
-                           required="true" requiredMessage="Campo obrigatório">
-                           </p:inputText>
-  
-                    <p:message for="telefone1" />
-  
-                    <p:outputLabel value="Telefone 2:" />
-                    <p:inputText value="#{paciente.paciente.telefone2}" id="telefone2">
-                    </p:inputText>
-                    <p:message for="telefone2" />
-                    
-                  <p:outputLabel value="Cidade Nascimento:" />
-                    <p:inputText value="#{paciente.paciente.cidadeNasc}" id="cidadeNasc"
-                           maxlength="100" required="true"
-                           requiredMessage="Campo obrigatório" />
-                    <p:message for="cidadeNasc" />
-                                        
-                    <p:outputLabel value="Logradouro:" required="true" />
-                    <p:inputText value="#{paciente.endereco.logradouro}" id="logradouro"
-                           maxlength="150" required="true"
-                           requiredMessage="Campo obrigatório" />                           
-                    <p:message for="logradouro" />
-                    
-                     <p:outputLabel value="Número:" />
-                    <p:inputText value="#{paciente.endereco.numero}" id="numero" required="true"
-                           requiredMessage="Campo obrigatório" maxlength="10">
-                           <f:convertNumber integerOnly="true" type="number" />
-                    </p:inputText>
-                    <p:message for="numero" />
-                    
-                    <p:outputLabel value="Complemento:" />
-                    <p:inputText value="#{paciente.endereco.complemento}" id="complemento" />
-                    <p:message for="complemento" />
-                    
-                    <p:outputLabel value="Bairro:" required="true" />
-                    <p:inputText value="#{paciente.endereco.bairro}" id="bairro"
-                           maxlength="150" required="true"
-                           requiredMessage="Campo obrigatório" />                           
-                    <p:message for="bairro" /> 
-                   
-                     
-                    <p:outputLabel value="Cidade:" />
-                    <p:inputText value="#{paciente.endereco.cidade}" id="cidade"
-                           maxlength="150" required="true"
-                           requiredMessage="Campo obrigatório" />
-                    <p:message for="cidade" />
-  
-                    <p:outputLabel value="UF:" />
-                    <p:inputText value="#{paciente.endereco.uf}" id="uf" maxlength="2"
-                           required="true" requiredMessage="Campo obrigatório" />
-                    <p:message for="uf" />
- 
-  
-                    <f:facet name="footer">
-                           <h:commandButton value="Salvar"
-                            action="#{paciente.createPaciente}"
-                                  update="pacienteForm">
-                           </h:commandButton>
-                    </f:facet>
-  
-             </p:panelGrid>
-       </h:form>
-  
+<h:body style="padding:20px">
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+
+	<form class="col s12">
+		<div class="row">
+			<h:outputText value="Cadastro Paciente" />
+		</div>
+		<p:outputLabel value="#{paciente.msg}" id="msg1" styleClass="msg" />
+		<div class="row">
+			<div class="input-field col s5">
+				<input id="nome" value="#{paciente.paciente.nome}" maxlength="100"
+					type="text" class="validate" />
+				 <label for="nome">Nome	Completo</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s3">
+				<p:outputLabel value="Gênero:"/>
+				<p:selectOneMenu id="genero" value="#{paciente.sexo}">
+					<f:selectItems value="#{paciente.genders}" />
+					<f:ajax event="change" execute="@this" render="panel1" />
+				</p:selectOneMenu>
+				<p:message for="genero" />
+			</div>
+		</div>
+		<p:outputLabel value="Nome Responsável 1:" />
+		<p:inputText value="#{paciente.paciente.nomeResponsavel1}"
+			id="nomeResponsavel1" maxlength="100" required="true"
+			requiredMessage="Campo obrigatório" />
+		<p:message for="nomeResponsavel1" />
+
+		<p:outputLabel value="Nome Responsável 2:" />
+		<p:inputText value="#{paciente.paciente.nomeResponsavel2}"
+			id="nomeResponsavel2" maxlength="100" />
+		<p:message for="nomeResponsavel2" />
+
+		<p:outputLabel value="Telefone:" />
+		<p:inputText value="#{paciente.paciente.telefone1}" id="telefone1"
+			required="true" requiredMessage="Campo obrigatório">
+		</p:inputText>
+
+		<p:message for="telefone1" />
+
+		<p:outputLabel value="Telefone 2:" />
+		<p:inputText value="#{paciente.paciente.telefone2}" id="telefone2">
+		</p:inputText>
+		<p:message for="telefone2" />
+
+		<p:outputLabel value="Cidade Nascimento:" />
+		<p:inputText value="#{paciente.paciente.cidadeNasc}" id="cidadeNasc"
+			maxlength="100" required="true" requiredMessage="Campo obrigatório" />
+		<p:message for="cidadeNasc" />
+
+		<p:outputLabel value="Logradouro:" required="true" />
+		<p:inputText value="#{paciente.endereco.logradouro}" id="logradouro"
+			maxlength="150" required="true" requiredMessage="Campo obrigatório" />
+		<p:message for="logradouro" />
+
+		<p:outputLabel value="Número:" />
+		<p:inputText value="#{paciente.endereco.numero}" id="numero"
+			required="true" requiredMessage="Campo obrigatório" maxlength="10">
+		</p:inputText>
+		<p:message for="numero" />
+
+		<p:outputLabel value="Complemento:" />
+		<p:inputText value="#{paciente.endereco.complemento}" id="complemento" />
+		<p:message for="complemento" />
+
+		<p:outputLabel value="Bairro:" required="true" />
+		<p:inputText value="#{paciente.endereco.bairro}" id="bairro"
+			maxlength="150" required="true" requiredMessage="Campo obrigatório" />
+		<p:message for="bairro" />
+
+
+		<p:outputLabel value="Cidade:" />
+		<p:inputText value="#{paciente.endereco.cidade}" id="cidade"
+			maxlength="150" required="true" requiredMessage="Campo obrigatório" />
+		<p:message for="cidade" />
+
+		<p:outputLabel value="UF:" />
+		<p:inputText value="#{paciente.endereco.uf}" id="uf" maxlength="2"
+			required="true" requiredMessage="Campo obrigatório" />
+		<p:message for="uf" />
+
+		<p:panelGrid id="panel2" columns="3" cellspacing="1">
+			<f:facet name="header">
+				<h:outputText value="Dados Nascimento" />
+			</f:facet>
+
+			<p:outputLabel value="Tipo Parto:" />
+			<p:selectOneMenu id="tipoParto"
+				value="#{paciente.paciente.tipoParto}">
+				<f:selectItems value="#{paciente.parto}" />
+				<f:ajax event="change" execute="@this" render="panel2" />
+			</p:selectOneMenu>
+			<p:message for="tipoParto" />
+
+			<p:outputLabel value="Comprimento:" />
+			<p:inputText value="#{paciente.paciente.comprimentoNasc}"
+				id="comprimentoNasc" maxlength="3" required="true"
+				requiredMessage="Campo obrigatório" />
+			<p:message for="comprimentoNasc" />
+
+			<p:outputLabel value="Peso:" />
+			<p:inputText value="#{paciente.paciente.pesoNasc}" id="pesoNasc"
+				required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="pesoNasc" />
+
+			<p:outputLabel value="Perímetro Cefálico:" />
+			<p:inputText value="#{paciente.paciente.perimetroCefalicoNasc}"
+				id="perimetroCefalicoNasc" required="true"
+				requiredMessage="Campo obrigatório" />
+			<p:message for="perimetroCefalicoNasc" />
+
+			<p:outputLabel value="Apgar:" />
+			<p:inputText value="#{paciente.paciente.apgarNasc}" id="apgarNasc"
+				maxlength="1" required="true" requiredMessage="Campo obrigatório" />
+			<p:message for="apgarNasc" />
+
+		</p:panelGrid>
+
+		<p:panelGrid id="panel3" columns="3" cellspacing="1">
+			<f:facet name="footer">
+				<h:commandButton value="Salvar" action="#{paciente.createPaciente}"
+					update="pacienteForm">
+				</h:commandButton>
+			</f:facet>
+		</p:panelGrid>
+	</form>
 </h:body>
 </html>

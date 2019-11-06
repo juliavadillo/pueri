@@ -47,10 +47,16 @@ public class Paciente {
 	private String telefone1;
 	@Column
 	private String telefone2;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dadosNasc_id", referencedColumnName = "id")
-	private DadosNascimento dadosNasc;
+	@Column
+	private Float comprimentoNasc;
+	@Column
+	private Float pesoNasc;
+	@Column
+	private Float perimetroCefalicoNasc;
+	@Column
+	private Integer apgarNasc;
+	@Column
+	private TipoParto tipoParto;
 	
 	public Long getId() {
 		return id;
@@ -124,11 +130,36 @@ public class Paciente {
 	public void setTelefone2(String telefone2) {
 		this.telefone2 = telefone2;
 	}
-	public DadosNascimento getDadosNasc() {
-		return dadosNasc;
+
+	public Float getComprimentoNasc() {
+		return comprimentoNasc;
 	}
-	public void setDadosNasc(DadosNascimento dadosNasc) {
-		this.dadosNasc = dadosNasc;
+	public void setComprimentoNasc(Float comprimentoNasc) {
+		this.comprimentoNasc = comprimentoNasc;
+	}
+	public Float getPesoNasc() {
+		return pesoNasc;
+	}
+	public void setPesoNasc(Float pesoNasc) {
+		this.pesoNasc = pesoNasc;
+	}
+	public Float getPerimetroCefalicoNasc() {
+		return perimetroCefalicoNasc;
+	}
+	public void setPerimetroCefalicoNasc(Float perimetroCefalicoNasc) {
+		this.perimetroCefalicoNasc = perimetroCefalicoNasc;
+	}
+	public Integer getApgarNasc() {
+		return apgarNasc;
+	}
+	public void setApgarNasc(Integer apgarNasc) {
+		this.apgarNasc = apgarNasc;
+	}
+	public TipoParto getTipoParto() {
+		return tipoParto;
+	}
+	public void setTipoParto(TipoParto tipoParto) {
+		this.tipoParto = tipoParto;
 	}
 	public Paciente(String nome, Sexo sexo) {
 		super();

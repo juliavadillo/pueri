@@ -8,10 +8,10 @@ import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
 
-import model.DadosNascimento;
 import model.Endereco;
 import model.Paciente;
 import model.Sexo;
+import model.TipoParto;
 
 @ManagedBean(value = "paciente")
 public class PacienteManagedBean implements java.io.Serializable {
@@ -19,13 +19,26 @@ public class PacienteManagedBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Paciente paciente = new Paciente();
 	private Endereco endereco = new Endereco();
-	private DadosNascimento dadosNasc = new DadosNascimento();
 	private String msg = "";
 	private Sexo sexo;
+	private TipoParto tipoParto;
 
-	public List<Sexo> getGenders(){  
-		   return Arrays.asList(Sexo.values());  
-		}  
+	public List<TipoParto> getParto() {
+		return Arrays.asList(TipoParto.values());
+	}
+
+	public TipoParto getTipoParto() {
+		return tipoParto;
+	}
+
+	public List<Sexo> getGenders() {
+		return Arrays.asList(Sexo.values());
+	}
+
+	public void setTipoParto(TipoParto tipoParto) {
+		this.tipoParto = tipoParto;
+	}
+
 	public Sexo getSexo() {
 		return sexo;
 	}
@@ -50,14 +63,6 @@ public class PacienteManagedBean implements java.io.Serializable {
 		this.endereco = endereco;
 	}
 
-	public DadosNascimento getDadosNasc() {
-		return dadosNasc;
-	}
-
-	public void setDadosNasc(DadosNascimento dadosNasc) {
-		this.dadosNasc = dadosNasc;
-	}
-
 	public String getMsg() {
 		return msg;
 	}
@@ -80,11 +85,6 @@ public class PacienteManagedBean implements java.io.Serializable {
 		this.endereco.setCidade("");
 		this.endereco.setUf("");
 		this.endereco.setPais("");
-		this.dadosNasc.setComprimento(null);
-		this.dadosNasc.setPeso(null);
-		this.dadosNasc.setPerimetroCefalico(null);
-		this.dadosNasc.setApgar(null);
-		this.dadosNasc.setTipoParto(null);
 	}
 
 	@Transactional
@@ -96,11 +96,8 @@ public class PacienteManagedBean implements java.io.Serializable {
 
 			EntityManagerImpl entityManager = new EntityManagerImpl();
 			Endereco end = (Endereco) entityManager.insertObject(this.endereco);
-			// DadosNascimento dados = (DadosNascimento)
-			// entityManager.insertObject(this.dadosNasc);
 			this.paciente.setEndereco(end);
 			this.paciente.setSexo(sexo);
-			// this.paciente.setDadosNasc(dados);
 			entityManager.insert(this.paciente);
 
 			limparPaciente();
