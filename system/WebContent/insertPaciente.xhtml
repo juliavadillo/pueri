@@ -15,7 +15,13 @@
 
 </h:head>
 <h:body style="padding:20px">
-	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js">
+    $(document).ready(function() {
+$('select').material_select();
+});
+    </script>
+	<script type="text/javascript" src="js/materialize.min.js">	</script>
 
 	<form class="col s12">
 		<div class="row">
@@ -25,63 +31,73 @@
 		<div class="row">
 			<div class="input-field col s5">
 				<input id="nome" value="#{paciente.paciente.nome}" maxlength="100"
-					type="text" class="validate" />
-				 <label for="nome">Nome	Completo</label>
+					type="text" class="validate" /> <label for="nome">Nome
+					Completo</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s3">
-				<p:outputLabel value="Gênero:"/>
-				<p:selectOneMenu id="genero" value="#{paciente.sexo}">
-					<f:selectItems value="#{paciente.genders}" />
-					<f:ajax event="change" execute="@this" render="panel1" />
-				</p:selectOneMenu>
-				<p:message for="genero" />
+				<p:outputLabel value="Gênero:" />
+				<select id="genero">
+					<option value="#{paciente.genders}" />
+				</select>
 			</div>
 		</div>
-		<p:outputLabel value="Nome Responsável 1:" />
-		<p:inputText value="#{paciente.paciente.nomeResponsavel1}"
-			id="nomeResponsavel1" maxlength="100" required="true"
-			requiredMessage="Campo obrigatório" />
-		<p:message for="nomeResponsavel1" />
+		<div class="row">
+			<div class="input-field col s5">
+				<input value="#{paciente.paciente.nomeResponsavel1}"
+					id="nomeResponsavel1" maxlength="100" type="text" class="validate" />
+				<label for="nomeResponsavel1">Nome Responsável 1 </label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s5">
+				<input value="#{paciente.paciente.nomeResponsavel2}"
+					id="nomeResponsavel2" maxlength="100" type="text" class="validate" />
+				<label for="nomeResponsavel2">Nome Responsável 2 </label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s3">
+				<input value="#{paciente.paciente.telefone1}" id="telefone1"
+					type="text" class="validate" /> <label for="telefone1">Telefone
+					1</label>
 
-		<p:outputLabel value="Nome Responsável 2:" />
-		<p:inputText value="#{paciente.paciente.nomeResponsavel2}"
-			id="nomeResponsavel2" maxlength="100" />
-		<p:message for="nomeResponsavel2" />
+			</div>
+			<div class="input-field col s3">
+				<input value="#{paciente.paciente.telefone2}" id="telefone2"
+					type="text" class="validate" /> <label for="telefone2">Telefone
+					2</label>
 
-		<p:outputLabel value="Telefone:" />
-		<p:inputText value="#{paciente.paciente.telefone1}" id="telefone1"
-			required="true" requiredMessage="Campo obrigatório">
-		</p:inputText>
+			</div>
+		</div>
 
-		<p:message for="telefone1" />
+		<div class="row">
+			<div class="input-field col s3">
+				<input value="#{paciente.paciente.cidadeNasc}" id="cidadeNasc"
+					maxlength="100" type="text" class="validate" /> <label
+					for="cidadeNasc">Cidade Nascimento</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<input value="#{paciente.endereco.logradouro}" id="logradouro"
+					maxlength="150" type="text" class="validate" /> <label
+					for="logradouro">Logradouro</label>
+			</div>
+			<div class="input-field col s2">
 
-		<p:outputLabel value="Telefone 2:" />
-		<p:inputText value="#{paciente.paciente.telefone2}" id="telefone2">
-		</p:inputText>
-		<p:message for="telefone2" />
-
-		<p:outputLabel value="Cidade Nascimento:" />
-		<p:inputText value="#{paciente.paciente.cidadeNasc}" id="cidadeNasc"
-			maxlength="100" required="true" requiredMessage="Campo obrigatório" />
-		<p:message for="cidadeNasc" />
-
-		<p:outputLabel value="Logradouro:" required="true" />
-		<p:inputText value="#{paciente.endereco.logradouro}" id="logradouro"
-			maxlength="150" required="true" requiredMessage="Campo obrigatório" />
-		<p:message for="logradouro" />
-
-		<p:outputLabel value="Número:" />
-		<p:inputText value="#{paciente.endereco.numero}" id="numero"
-			required="true" requiredMessage="Campo obrigatório" maxlength="10">
-		</p:inputText>
-		<p:message for="numero" />
-
-		<p:outputLabel value="Complemento:" />
-		<p:inputText value="#{paciente.endereco.complemento}" id="complemento" />
-		<p:message for="complemento" />
-
+				<input value="#{paciente.endereco.numero}" id="numero"
+					required="true" type="text" class="validate"/> <label
+					for="numero"> Número</label>
+			</div>
+			<div class="input-field col s4">
+				<p:outputLabel value="Complemento:" />
+				<p:inputText value="#{paciente.endereco.complemento}"
+					id="complemento" />
+				<p:message for="complemento" />
+			</div>
+		</div>
 		<p:outputLabel value="Bairro:" required="true" />
 		<p:inputText value="#{paciente.endereco.bairro}" id="bairro"
 			maxlength="150" required="true" requiredMessage="Campo obrigatório" />
