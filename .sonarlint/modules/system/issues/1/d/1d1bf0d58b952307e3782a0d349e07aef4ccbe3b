@@ -1,5 +1,0 @@
-
-Xsquid:S3066"#Lower the visibility of this field.(õ€µþøÿÿÿÿH³RMINORZVULNERABILITY
-ž"squid:ClassVariableVisibilityCheck"RMake codigo a static final constant or non-public and provide accessors if needed.(õ€µþøÿÿÿÿH´RMINORZVULNERABILITY
-xsquid:S1301"KReplace this "switch" statement by "if" statements to increase readability.(Ù——êHµRMINORZ
-CODE_SMELL

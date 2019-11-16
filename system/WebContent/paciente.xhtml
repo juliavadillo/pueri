@@ -5,15 +5,184 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<meta http-equiv="Content-Type"
-			content="text/html; charset=ISO-8859-1" />
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+		media="screen,projection" />
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js">
 
-	</h:head>
-	<body>
-		<h1>Cadastrar Paciente</h1>
-		<p:commandButton value="Cadastrar Paciente"
-			action="insertPaciente.xhtml">
-		</p:commandButton>
-	</body>
+    </script>
+	<script type="text/javascript" src="js/materialize.min.js">	</script>
+
+	<h:outputStylesheet library="css" name="sweetalert2.css"></h:outputStylesheet>
+	<h:outputScript libary="js" name="sweetalert2.min.js"></h:outputScript>
+	<style>
+.ui-paginator-page.ui-state-default.ui-corner-all.ui-state-active {
+	border: solid 2px grey;
+}
+
+.ui-paginator-page.ui-state-default.ui-corner-all {
+	border: none;
+	border-radius: 2px;
+	line-height: 36px;
+	padding: 0 2rem;
+	text-transform: uppercase;
+	vertical-align: middle;
+	-webkit-tap-highlight-color: transparent;
+	text-decoration: none;
+	color: #fff;
+	background-color: #26a69a;
+	text-align: center;
+	letter-spacing: .5px;
+	transition: .2s ease-out;
+	cursor: pointer;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0
+		rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.ui-paginator-page.ui-state-default.ui-state-hover {
+	/*Hover style*/
+	
+}
+
+.ui-paginator-prev.ui-state-default.ui-corner-all:before {
+	content: "Anterior";
+}
+
+.ui-paginator-prev.ui-state-default.ui-corner-all.ui-state-disabled:before
+	{
+	content: "Anterior";
+}
+
+.ui-paginator-last.ui-state-default.ui-corner-all.ui-state-disabled:before
+	{
+	content: "Último";
+}
+
+.ui-paginator-last.ui-state-default.ui-corner-all:before {
+	content: "Último";
+}
+
+.ui-paginator-first.ui-state-default.ui-corner-all.ui-state-disabled:before
+	{
+	content: "Primeiro";
+}
+
+.ui-paginator-first.ui-state-default.ui-corner-all:before {
+	content: "Primeiro";
+}
+
+.ui-paginator-next.ui-state-default.ui-corner-all.ui-state-disabled:before
+	{
+	content: "Próximo";
+}
+
+.ui-paginator-next.ui-state-default.ui-corner-all:before {
+	content: "Próximo";
+}
+
+.ui-icon.ui-icon-seek-first {
+	display: none;
+}
+
+.ui-icon.ui-icon-seek-end {
+	display: none;
+}
+
+.ui-icon.ui-icon-seek-prev {
+	display: none;
+}
+
+.ui-icon.ui-icon-seek-next {
+	display: none;
+}
+
+/*Table without border*/
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td,
+	.ui-datatable tfoot th {
+	border-width: 2px;
+}
+</style>
+</h:head>
+
+<body>
+	<h4>Paciente</h4>
+	<div class="container">
+		<p:growl autoUpdate="true" />
+		<h:form>
+			<div class="row">
+				<div class="input-field col s3">
+					<h:outputLabel for="buscaNome">Buscar</h:outputLabel>
+					<h:inputText value="#{paciente.nomeBusca}" id="buscaNome"
+						type="text" />
+				</div>
+				<div class="input-field col s2">
+					<h:commandButton value="Buscar"
+						actionListener="#{paciente.findPaciente}"
+						styleClass="btn waves-effect waves-light"></h:commandButton>
+				</div>
+				<div class="input-field col s2">
+					<h:commandButton value="Buscar todos"
+						actionListener="#{paciente.findAllPacients}"
+						styleClass="btn waves-effect waves-light"></h:commandButton>
+				</div>
+			</div>
+		</h:form>
+		<p:dataTable
+			tableStyleClass="table striped centered highlight responsive-table"
+			value="#{paciente.pacientes}" var="paciente" selectionMode="single"
+			rowKey="#{paciente.id}" rows="10" paginator="true"
+			paginatorAlwaysVisible="false" paginatorPosition="bottom" id="table">
+			<p:ajax event="rowSelect" listener="#{paciente.onRowSelect}" />
+			<p:column headerText="Nome">#{paciente.nome}</p:column>
+			<p:column headerText="Responsável 1">#{paciente.nomeResponsavel1}</p:column>
+			<p:column headerText="Responsável 2">#{paciente.nomeResponsavel2}</p:column>
+
+
+		</p:dataTable>
+	</div>
+
+	<script>
+            $(document).on("ready",function(){
+                $(".ui-paginator-first.ui-state-default.ui-corner-all").addClass("btn");
+                $(".ui-paginator-last.ui-state-default.ui-corner-all").addClass("btn");
+                $(".ui-paginator-next.ui-state-default.ui-corner-all").addClass("btn");
+                $(".ui-paginator-prev.ui-state-default.ui-corner-all").addClass("btn");
+            });
+        </script>
+	<h:form>
+		<div class="row">
+			<div class="input-field col s2">
+				<h:commandButton value="Novo Paciente" action="insertPaciente.xhtml"
+					styleClass="btn waves-effect waves-light"
+					onclick="this.form.target='_blank'">
+				</h:commandButton>
+			</div>
+			<div class="input-field col s1">
+				<h:commandButton actionListener="#{paciente.removerPaciente}"
+					value="Excluir" styleClass="btn waves-effect waves-light"
+					update="table" process="@all">
+				</h:commandButton>
+			</div>
+			<div class="input-field col s2">
+				<h:commandButton value="Atualizar Dados"
+					action="updatePaciente.xhtml"
+					styleClass="btn waves-effect waves-light"
+					onclick="this.form.target='_blank'">
+				</h:commandButton>
+			</div>
+			<div class="input-field col s2">
+				<h:commandButton value="Nova Consulta"
+					actionListener="#{paciente.createConsulta}"					
+				    action="consulta.xhtml"
+					styleClass="btn waves-effect waves-light"
+					onclick="this.form.target='_blank'">
+					
+				</h:commandButton>
+			</div>
+		</div>
+	</h:form>
+
+
+</body>
 </html>

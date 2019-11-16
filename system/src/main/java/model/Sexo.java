@@ -1,7 +1,7 @@
 package model;
 
 public enum Sexo {
-	MASCULINO(1), FEMININO(2);
+	 FEMININO(1), MASCULINO(2);
 	public int codigo;
 
 	private Sexo(int codigo) {

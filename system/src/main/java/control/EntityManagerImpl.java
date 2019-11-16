@@ -1,9 +1,13 @@
 package control;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.transaction.Transactional;
+import javax.persistence.Query;
+
+import model.Paciente;
 
 public class EntityManagerImpl {
 
@@ -23,7 +27,7 @@ public class EntityManagerImpl {
 	public Object insertObject(Object object) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE);
 		EntityManager entityManager = factory.createEntityManager();
-		entityManager.getTransaction().begin();
+		entityManager.getTransaction().begin();	
 		entityManager.persist(object);
 		entityManager.getTransaction().commit();
 		Object obj = object;
@@ -36,14 +40,19 @@ public class EntityManagerImpl {
 	public void update(Object object) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE);
 		EntityManager entityManager = factory.createEntityManager();
-		entityManager.refresh(object);
+		entityManager.getTransaction().begin();			
+		entityManager.merge(object);
+		entityManager.getTransaction().commit();
 		entityManager.close();
 		factory.close();
 	}
 	public void remove (Object object) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE);
 		EntityManager entityManager = factory.createEntityManager();
-		entityManager.remove(object);
+		entityManager.getTransaction().begin();	
+		Object toRemove = entityManager.merge(object);
+		entityManager.remove(toRemove);
+		entityManager.getTransaction().commit();
 		entityManager.close();
 		factory.close();
 	}
@@ -53,6 +62,13 @@ public class EntityManagerImpl {
 		Object obj = entityManager.find(clas, id);
 		factory.close();
 		return obj;
+	}
+	
+	public List find(String select){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE);
+		EntityManager entityManager = factory.createEntityManager();
+		Query query = entityManager.createQuery(select);
+		return query.getResultList();
 	}
 	
 

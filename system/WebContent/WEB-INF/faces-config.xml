@@ -11,4 +11,10 @@
        </managed-bean-class>
        <managed-bean-scope>session</managed-bean-scope>
      </managed-bean>
+      <managed-bean>
+       <managed-bean-name>consulta</managed-bean-name>
+       <managed-bean-class>control.ConsultaManagedBean
+       </managed-bean-class>
+       <managed-bean-scope>session</managed-bean-scope>
+     </managed-bean>
 </faces-config>

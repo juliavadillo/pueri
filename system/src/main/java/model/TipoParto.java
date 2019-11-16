@@ -1,7 +1,7 @@
 package model;
 
 public enum TipoParto {
-	NORMAL(1), CESAREA(2);
+	 CESAREA(1), FORCEPS(2), NORMAL(3);
 	public int codigo;
 
 	private TipoParto(int codigo) {
@@ -14,6 +14,8 @@ public enum TipoParto {
 	            return "Normal";
 	        case CESAREA:
 	            return "Cesárea";
+	        case FORCEPS:
+	        	return "Fórceps";
 
 	    }
 	    return "NONE";

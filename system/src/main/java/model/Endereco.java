@@ -2,8 +2,8 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,7 +32,7 @@ public class Endereco {
 	@Column
 	private String pais;
 
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "endereco", cascade = CascadeType.ALL)
 	private List<Paciente> pacientes;
 
 	public List<Paciente> getPacientes() {

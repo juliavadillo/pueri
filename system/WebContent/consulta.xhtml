@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"
+		media="screen,projection" />
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.2.1.min.js">
+
+    </script>
+	<script type="text/javascript" src="js/materialize.min.js">	</script>
+	<script>$(document).ready(function(){
+    $('select').formSelect();
+});
+
+$(document).ready(function(){
+$('.datepicker').datepicker({
+    monthsFull: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    weekdaysFull: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabádo'],
+    weekdaysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    today: 'Hoje',
+    clear: 'Limpar',
+    close: 'Pronto',
+    labelMonthNext: 'Próximo mês',
+    labelMonthPrev: 'Mês anterior',
+    labelMonthSelect: 'Selecione um mês',
+    labelYearSelect: 'Selecione um ano',
+    selectMonths: true, 
+    selectYears: 15 
+    });
+  });</script>
+
+	<h:outputStylesheet library="css" name="sweetalert2.css"></h:outputStylesheet>
+	<h:outputScript libary="js" name="sweetalert2.min.js"></h:outputScript>
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{consulta.initialize}" />
+	</f:metadata>
+</h:head>
+<h:body style="padding:20px">
+
+	<h:form class="col s12" id="consultaForm">
+		<p:growl autoUpdate="true" />
+		<h4>Consulta</h4>
+		<div class="row">
+			<div class="input-field col s5">
+				<h:inputText id="nome" value="#{consulta.consulta.paciente.nome}" />
+				<h:outputLabel for="nome">Paciente</h:outputLabel>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s3">
+				<h:inputText id="peso" value="#{consulta.consulta.pesoAtual}"
+					required="true" requiredMessage="Peso Atual obrigatório" />
+				<h:outputLabel for="peso">Peso atual</h:outputLabel>
+			</div>
+			<div class="input-field col s3">
+				<h:inputText value="#{consulta.consulta.alturaAtual}" id="altura"
+					maxlength="3" type="text" required="true"
+					requiredMessage="Altura atual obrigatório" />
+				<h:outputLabel for="altura">
+					Altura atual </h:outputLabel>
+			</div>
+			<div class="input-field col s3">
+				<h:inputText value="#{consulta.consulta.perimetroCefalico}"
+					id="perimetroCef" maxlength="3" type="text" required="true"
+					requiredMessage="Perímetro cefálico obrigatório" />
+				<h:outputLabel for="perimetroCef">Perímetro cefálico </h:outputLabel>
+			</div>
+		</div>
+		<h6>Sintomas</h6>
+		<div class="row">
+			<div class="input-field col s3">
+				<label> <input value="#{consulta.consulta.diarreia}"
+					id="pneumonia" type="checkbox" /> <span>Diarréia</span>
+				</label>
+			</div>
+			<div class="input-field col s3">
+				<label> <input value="#{consulta.consulta.pneumonia}"
+					id="pneumonia" type="checkbox" /> <span>Pneumonia</span>
+				</label>
+			</div>
+			<div class="input-field col s3">
+				<label> <input value="#{consulta.consulta.hospitalizacao}"
+					id="hospitalizacao" type="checkbox" /> <span>Hospitalização</span>
+				</label>
+			</div>
+			<div class="input-field col s3">
+				<label> <input value="#{consulta.consulta.introducaoAli}"
+					id="introducao" type="checkbox" /> <span>Introdução de um
+						novo alimento</span>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<h:inputText id="outros" value="#{consulta.consulta.outros}" />
+				<h:outputLabel for="outros">Outros</h:outputLabel>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s2">
+				<h:commandLink value="Salvar"
+					actionListener="#{consulta.createConsulta}"
+					styleClass="btn waves-effect waves-light" update="consultaForm" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
