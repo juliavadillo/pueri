@@ -1,7 +1,10 @@
 package control;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.ManagedBean;
@@ -29,8 +32,17 @@ public class PacienteManagedBean implements java.io.Serializable {
 	private TipoParto tipoParto;
 	private List<Paciente> pacientes = new ArrayList<>();
 	private String nomeBusca = "";
+    private String dataNasc;
 	
 	
+
+	public String getDataNasc() {
+		return dataNasc;
+	}
+
+	public void setDataNasc(String dataNasc) {
+		this.dataNasc = dataNasc;
+	}
 
 	public String getNomeBusca() {
 		return nomeBusca;
@@ -88,6 +100,7 @@ public class PacienteManagedBean implements java.io.Serializable {
 
 		log.info("Limpando dados Paciente");
 		this.paciente.setNome("");
+		this.paciente.setDataNasc(null);
 		this.paciente.setSusCode(null);
 		this.paciente.setNomeResponsavel1("");
 		this.paciente.setNomeResponsavel2("");
@@ -112,6 +125,16 @@ public class PacienteManagedBean implements java.io.Serializable {
 
 	@Transactional
 	public void createPaciente(ActionEvent evt) {
+		
+		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+		Date dataFormatada = null;
+		try {
+			dataFormatada = formato.parse(dataNasc);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		this.paciente.setDataNasc(dataFormatada);
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		try {
@@ -134,6 +157,8 @@ public class PacienteManagedBean implements java.io.Serializable {
 		 
 	}
 	
+	
+	
 	public void findAllPacients() {
 		pacientes.clear();
 		EntityManagerImpl em = new EntityManagerImpl();
@@ -150,7 +175,7 @@ public class PacienteManagedBean implements java.io.Serializable {
 	@Transactional
 	public void removerPaciente() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		EntityManagerImpl em = new EntityManagerImpl();
+		 EntityManagerImpl em = new EntityManagerImpl();
 		Paciente pac = (Paciente) em.findById(Paciente.class, this.paciente.getId());		
 		em.remove(pac);
 		context.addMessage(null, new FacesMessage("Cadastro removido", "Cadastro efetuado"));

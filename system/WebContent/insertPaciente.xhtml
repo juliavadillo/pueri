@@ -38,6 +38,19 @@ $('.datepicker').datepicker({
 
 	<h:outputStylesheet library="css" name="sweetalert2.css"></h:outputStylesheet>
 	<h:outputScript libary="js" name="sweetalert2.min.js"></h:outputScript>
+	<!-- DatePicker JavaScript & CSS -->
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+	<script>
+	$(document).ready(function() {
+   $(".datepicker").datepicker({
+      dateFormat: 'dd-mm-yy',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1960:2020"
+   });
+});</script>
 </h:head>
 <h:body style="padding:20px">
 
@@ -49,6 +62,12 @@ $('.datepicker').datepicker({
 				<h:inputText id="nome" value="#{paciente.paciente.nome}"
 					required="true" requiredMessage="Nome Completo obrigatório" />
 				<h:outputLabel for="nome">Nome Completo</h:outputLabel>
+			</div>
+		</div>
+		<div class="row">
+		<div class="input-field col s3">
+			<h:inputText id = "data" value="#{paciente.dataNasc}" styleClass="form-control datepicker"/>
+			<h:outputLabel for="data">Data Nascimento</h:outputLabel>
 			</div>
 		</div>
 		<div class="row">

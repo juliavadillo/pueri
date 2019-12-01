@@ -103,40 +103,25 @@
 	border-width: 2px;
 }
 </style>
+<f:metadata>		
+		<f:event type="preRenderView" listener="#{consulta.initialize}" />
+	</f:metadata>
 </h:head>
 
 <body>
-	<h4>Paciente</h4>
+	<h4>Consultas Anteriores</h4>
 	<div class="container">
-		<p:growl autoUpdate="true" />
-		<h:form>
-			<div class="row">
-				<div class="input-field col s3">
-					<h:outputLabel for="buscaNome">Buscar</h:outputLabel>
-					<h:inputText value="#{paciente.nomeBusca}" id="buscaNome"
-						type="text" />
-				</div>
-				<div class="input-field col s2">
-					<h:commandButton value="Buscar"
-						actionListener="#{paciente.findPaciente}"
-						styleClass="btn waves-effect waves-light"></h:commandButton>
-				</div>
-				<div class="input-field col s2">
-					<h:commandButton value="Buscar todos"
-						actionListener="#{paciente.findAllPacients}"
-						styleClass="btn waves-effect waves-light"></h:commandButton>
-				</div>
-			</div>
-		</h:form>
+		<p:growl autoUpdate="true" />		
 		<p:dataTable
 			tableStyleClass="table striped centered highlight responsive-table"
-			value="#{paciente.pacientes}" var="paciente" selectionMode="single"
-			rowKey="#{paciente.id}" rows="10" paginator="true"
+			value="#{consulta.consultas}" var="consulta" selectionMode="single"
+			rowKey="#{consulta.id}" rows="10" paginator="true"
 			paginatorAlwaysVisible="false" paginatorPosition="bottom" id="table">
-			<p:ajax event="rowSelect" listener="#{paciente.onRowSelect}" />
-			<p:column headerText="Nome">#{paciente.nome}</p:column>
-			<p:column headerText="Responsável 1">#{paciente.nomeResponsavel1}</p:column>
-			<p:column headerText="Responsável 2">#{paciente.nomeResponsavel2}</p:column>
+			<p:ajax event="rowSelect" listener="#{consulta.onRowSelect}" />
+			<p:column headerText="Data consulta">#{consulta.data}</p:column>
+			<p:column headerText="Peso">#{consulta.pesoAtual}</p:column>
+			<p:column headerText="Altura">#{consulta.alturaAtual}</p:column>			
+			<p:column headerText="Perímetro Cefálico">#{consulta.perimetroCefalico}</p:column>
 
 
 		</p:dataTable>
@@ -153,41 +138,12 @@
 	<h:form>
 		<div class="row">
 			<div class="input-field col s2">
-				<h:commandButton value="Novo Paciente" action="insertPaciente.xhtml?faces-redirect=true"
+				<h:commandButton value="Visualizar Consulta"
+				actionListener="#{consulta.createConsultaView}" action="viewConsulta.xhtml?faces-redirect=true"
 					styleClass="btn waves-effect waves-light"
 					onclick="this.form.target='_blank'">
 				</h:commandButton>
-			</div>
-			<div class="input-field col s1">
-				<h:commandButton actionListener="#{paciente.removerPaciente}"
-					value="Excluir" styleClass="btn waves-effect waves-light"
-					update="table" process="@all">
-				</h:commandButton>
-			</div>
-			<div class="input-field col s2">
-				<h:commandButton value="Atualizar Dados"
-					action="updatePaciente.xhtml?faces-redirect=true"
-					styleClass="btn waves-effect waves-light"
-					onclick="this.form.target='_blank'">
-				</h:commandButton>
-			</div>
-			<div class="input-field col s2">
-				<h:commandButton value="Nova Consulta"
-					actionListener="#{paciente.createConsulta}"					
-				    action="consulta.xhtml?faces-redirect=true"
-					styleClass="btn waves-effect waves-light"
-					onclick="this.form.target='_blank'">
-					
-				</h:commandButton>
-			</div>
-			<div class="input-field col s2">
-				<h:commandButton value="Listar Consultas"		
-				    actionListener="#{paciente.createConsulta}"									
-				    action="consultaByPaciente.xhtml?faces-redirect=true"
-					styleClass="btn waves-effect waves-light"
-					onclick="this.form.target='_blank'">					
-				</h:commandButton>
-			</div>
+			</div>			
 		</div>
 	</h:form>
 
